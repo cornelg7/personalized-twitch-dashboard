@@ -10,7 +10,8 @@ const Home = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className={styles.inputContainer}>
-        <h1>Welcome to the Personalized Twitch Dashboard! 🎉</h1>
+        <h1>Welcome to the Personalized Twitch Dashboard!! 🎈🎉</h1>
+        <h2>{process.env.DEMO_SECRET}</h2>
       </div>
     </div>
   )
