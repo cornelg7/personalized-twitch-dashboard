@@ -8,7 +8,7 @@ const Home = () => {
   const [channels, setChannels] = useState([]);
 
   // Actions
-  const addChannel = event => {
+  const addChannel = async (event) => {
     event.preventDefault();
     const { value } = event.target.elements.name;
     if (value) {
@@ -21,12 +21,10 @@ const Home = () => {
         body: JSON.stringify({ data: value })
       }
       
-      fetch(`${path}/api/twitch`, request_data).then((response) => {
-        return response.json();
-      }).then(response => {
-        console.log('From server: ', response.data);
-        setChannels(prevState => [...prevState, value]);
-      });
+      const response = await fetch(`${path}/api/twitch`, request_data);
+      const jsonResponse = await response.json();
+      console.log('From server: ', jsonResponse.data);
+      // setChannels(prevState => [...prevState, value]);
     }
     event.target.elements.name.value = '';
   };
