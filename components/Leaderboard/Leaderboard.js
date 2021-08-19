@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/Leaderboard.module.css';
+import styles from '../../styles/Leaderboard.module.scss';
 
 const Leaderboard = ({ pageState, setPageState }) => {
   return (

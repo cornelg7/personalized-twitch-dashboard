@@ -1,0 +1,61 @@
+@import 'variables';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+html,
+body {
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, DM Mono, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body {
+  position: relative;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*:after, *:before {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+button {
+  font-weight: bold;
+  display: inline-block;
+  padding: 14px 22px;
+  text-decoration: none;
+  border: 0;
+  border-radius: 15px;
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.15 );
+  backdrop-filter: blur( 13.0px );
+  -webkit-backdrop-filter: blur( 13.0px );
+  color: $font-color;
+  font-size: $font-size-md;
+  letter-spacing: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+
+  &:not([disabled]):hover {
+    color: $font-color-hover;
+    background-color: rgba(31, 38, 135, 0.25)
+  }
+
+  &[disabled] {
+    opacity: 0.4;
+    cursor: default;
+  }
+}

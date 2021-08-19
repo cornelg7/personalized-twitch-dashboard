@@ -1,0 +1,17 @@
+$bubbles_total: 30;
+
+.bubble {
+  background-color: rgba(255, 255, 255, 0.4);
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  @for $bubble from 1 through $bubbles_total {
+    &#{$bubble} {
+      opacity: (random(100))*0.01;
+      left: #{random(100)}vw;
+      top: #{random(100)}vh;
+    }
+  }
+}

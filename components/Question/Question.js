@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import styles from '../../styles/Question.module.css';
+import styles from '../../styles/Question.module.scss';
 import Loading from '../Loading';
 
 const Question = ({ 
