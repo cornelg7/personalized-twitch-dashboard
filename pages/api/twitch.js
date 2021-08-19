@@ -5,7 +5,8 @@ export default async (req, res) => {
   try {
     if (req.method === 'POST') {
       const { data } = req.body;
-      const channelData = await getTwitchChannels(data);
+      console.log('data', data);
+      const channelData = await getTwitchStreamers();
       if (channelData) {
         res.status(200).json({ data: channelData })
       }
@@ -94,4 +95,22 @@ const getTwitchChannels = async (channelName) => {
 
   // Send request via the sendRequestWithAuth method
   return await sendRequestWithAuth(twitchChannelsRequest);
+}
+
+// Get (en) live twitch streamers
+const getTwitchStreamers = async () => {
+  // Create request
+  const twitchStreamersRequest = async () => {
+    // Make query request
+    console.log('In getTwitchStreamers -> Fetching data..');
+    return await fetch(`${HOST_NAME}/streams?first=100&language=en`, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+        "Client-Id": process.env.TWITCH_CLIENT_ID
+      }
+    });
+  }
+
+  // Send request via the sendRequestWithAuth method
+  return await sendRequestWithAuth(twitchStreamersRequest);
 }
