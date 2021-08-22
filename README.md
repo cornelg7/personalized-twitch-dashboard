@@ -1,3 +1,3 @@
-## Live at <https://personalized-twitch-dashboard.vercel.app/>
+## Live at <https://twitch-guess.vercel.app/>
 
 ## Project created during _buildspace course
