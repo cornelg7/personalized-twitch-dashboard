@@ -9,6 +9,8 @@ const Question = ({
   NUMBER_OF_QUESTIONS,
   COUNTER_TIME,
   COUNTER_DELAY,
+  IMAGES_WIDTH,
+  IMAGES_HEIGHT,
   counter,
   setCounter,
   runningCounter,
@@ -32,6 +34,7 @@ const Question = ({
     if (answered) {
       return;
     }
+    setAnswered(true);
     setLoading(true);
     setRunningCounter(false);
     if (answer.game_id === pageState.data?.question?.correctAnswerData?.game_id) {
@@ -82,12 +85,12 @@ const Question = ({
 
   return (
     <div className={styles.questionContainer}>
-      <div className={styles.questionHeader}>
+      <div className={`${styles.questionHeader} ${styles.card}`}>
         <span className={styles.questionTitle}>
-          Question { pageState.data?.questionNumber ?? null } / {NUMBER_OF_QUESTIONS}
+          { pageState.data?.questionNumber ?? null } / {NUMBER_OF_QUESTIONS}
         </span>
         <span className={styles.questionScore}>
-          {pageState.data?.score}
+          ⭐ {pageState.data?.score}
           {answered && (
             <span className={styles.questionThisRoundScore}>
               <span className={styles.questionThisRoundScorePlus}>+</span>
@@ -96,26 +99,35 @@ const Question = ({
           )}
         </span>
         <span className={styles.questionCounter}>
-          {runningCounter ? counter : COUNTER_TIME}
+          🕓 {runningCounter ? counter : COUNTER_TIME}
         </span>
       </div>
-      <div className={styles.questionDetailsContainer}>
-        <div className={styles.questionDetailsStreamerName}>
-          Streamer <span className={styles.streamerName}>{ pageState.data?.question?.correctAnswerData?.user_name }</span> is streaming right now!
-        </div>
-        {(counter <= 16 || answered) && (
-          <div className={styles.questionDetailsStreamName}>
-            The stream is titled: <span className={styles.streamName}>{ pageState.data?.question?.correctAnswerData?.title }</span>.
-          </div>
-        )}
-        {(counter <= 9 || answered) && (
-          <div className={styles.questionDetailsStreamImage}>
-            <Image loading="eager" priority={true} width={356} height={200} src={pageState.data?.question?.correctAnswerData?.thumbnail_url}></Image>
-          </div>
-        )}
+      <div className={`${styles.card} ${styles.questionDetailsStreamerName}`}>
+        <span className={styles.questionDetailsStreamerNameInner}>
+          Name: <span className={styles.streamerName}>{ pageState.data?.question?.correctAnswerData?.user_name }</span>
+        </span>
       </div>
-      <div className={styles.questionStaticQuestion}>
-        What game are they streaming?
+      <div className={`${styles.card} ${styles.questionDetailsStreamName} ${counter > 16 && !answered ? styles.streamNameHidden : null}`}>
+        <span className={styles.questionDetailsStreamNameInner}>
+          <span className={styles.streamNameHeading}>Title: </span>
+          <span className={styles.streamName}>
+            { pageState.data?.question?.correctAnswerData?.title }
+          </span>
+        </span>
+      </div>
+      <div className={styles.questionDetailsStreamImage}>
+        {(counter > 10 && !answered) && (
+          <div className={styles.questionDetailsStreamImageBlur}></div>
+        )}
+        <Image 
+          loading="lazy" 
+          priority={false} 
+          width={IMAGES_WIDTH} 
+          height={IMAGES_HEIGHT} 
+          placeholder="blur" 
+          src={pageState.data?.question?.correctAnswerData?.thumbnail_url}
+          styles={{'border-radius': '10px'}}
+        ></Image>
       </div>
       <div className={styles.questionAnswerContainer}>
         { 
@@ -124,6 +136,7 @@ const Question = ({
               key={`answer-${answer.game_id}`} 
               className={`
                 ${styles.questionAnswer}
+                ${styles.card}
                 ${answered 
                   ? styles.disabled 
                   : null}
@@ -138,19 +151,18 @@ const Question = ({
               <div className={styles.questionAnswerTitle}>
                 {answer.game_name}
               </div>
-              {/* <div className={styles.questionAnswerImageContainer}>
-                <Image className={styles.questionAnswerImage} src={answer.}></Image>
-              </div> */}
             </div>
           )
         }
       </div>
-      {answered && (
-        <button onClick={ () => onNextQuestion() }>
-          Next question
-        </button>
-      )}
-      {loading && (<Loading/>)}
+      <div className={styles.nextQuestionButtonContainer}>
+        {answered && !loading && (
+          <button onClick={ () => onNextQuestion() }>
+            Next question
+          </button>
+        )}
+        {loading && (<Loading/>)}
+        </div>
     </div>
   )
 }

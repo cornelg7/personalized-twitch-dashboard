@@ -13,161 +13,8 @@ const Home = () => {
   const NUMBER_OF_QUESTIONS = 5;
   const COUNTER_DELAY = 1000;
   const COUNTER_TIME = 20;
-  const IMAGES_WIDTH = 356;
-  const IMAGES_HEIGHT = 200;
-  // todo delete this
-  const QUESTIONS_TEST_CASE = [
-    {
-        "questionNumber": 1,
-        "correctAnswerData": {
-            "game_id": "32507",
-            "game_name": "SMITE",
-            "id": "42998025580",
-            "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_smitegame-356x200.jpg",
-            "title": "Good Morning! ->!Puffy",
-            "user_id": "31500812",
-            "user_name": "SmiteGame",
-            "viewer_count": 2529
-        },
-        "allAnswersData": [
-            {
-                "game_id": "491487",
-                "game_name": "Dead by Daylight",
-                "correctAnswer": false
-            },
-            {
-                "game_id": "32507",
-                "game_name": "SMITE",
-                "correctAnswer": true
-            },
-            {
-                "game_id": "506246",
-                "game_name": "Fallout 76",
-                "correctAnswer": false
-            }
-        ]
-    },
-    {
-        "questionNumber": 2,
-        "correctAnswerData": {
-            "game_id": "20716",
-            "game_name": "I Wanna Be The Guy",
-            "id": "39841006795",
-            "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_admiralbulldog-356x200.jpg",
-            "title": "Mediashare [A] @AdmiralBulldog",
-            "user_id": "30816637",
-            "user_name": "AdmiralBulldog",
-            "viewer_count": 5574
-        },
-        "allAnswersData": [
-            {
-                "game_id": "512160",
-                "game_name": "Tribes of Midgard",
-                "correctAnswer": false
-            },
-            {
-                "game_id": "518204",
-                "game_name": "FIFA 21",
-                "correctAnswer": false
-            },
-            {
-                "game_id": "20716",
-                "game_name": "I Wanna Be The Guy",
-                "correctAnswer": true
-            }
-        ]
-    },
-    {
-        "questionNumber": 3,
-        "correctAnswerData": {
-            "game_id": "513143",
-            "game_name": "Teamfight Tactics",
-            "id": "43327655133",
-            "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_emilyywang-356x200.jpg",
-            "title": "[CHALLENGER] 24 HR MAX !subathon !giveaways !today | !akshan3 !aphelios3 ",
-            "user_id": "36594525",
-            "user_name": "emilyywang",
-            "viewer_count": 2557
-        },
-        "allAnswersData": [
-            {
-                "game_id": "508967",
-                "game_name": "Axie Infinity",
-                "correctAnswer": false
-            },
-            {
-                "game_id": "513143",
-                "game_name": "Teamfight Tactics",
-                "correctAnswer": true
-            },
-            {
-                "game_id": "67584",
-                "game_name": "Europa Universalis IV",
-                "correctAnswer": false
-            }
-        ]
-    },
-    {
-        "questionNumber": 4,
-        "correctAnswerData": {
-            "game_id": "513143",
-            "game_name": "Teamfight Tactics",
-            "id": "43327655133",
-            "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_emilyywang-356x200.jpg",
-            "title": "[CHALLENGER] 24 HR MAX !subathon !giveaways !today | !akshan3 !aphelios3 ",
-            "user_id": "36594525",
-            "user_name": "emilyywang",
-            "viewer_count": 2557
-        },
-        "allAnswersData": [
-            {
-                "game_id": "516575",
-                "game_name": "VALORANT",
-                "correctAnswer": false
-            },
-            {
-                "game_id": "513143",
-                "game_name": "Teamfight Tactics",
-                "correctAnswer": true
-            },
-            {
-                "game_id": "2748",
-                "game_name": "Magic: The Gathering",
-                "correctAnswer": false
-            }
-        ]
-    },
-    {
-        "questionNumber": 5,
-        "correctAnswerData": {
-            "game_id": "2274",
-            "game_name": "The Sims 2",
-            "id": "43333121997",
-            "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_39daph-356x200.jpg",
-            "title": "billy",
-            "user_id": "160504245",
-            "user_name": "39daph",
-            "viewer_count": 10533
-        },
-        "allAnswersData": [
-            {
-                "game_id": "18122",
-                "game_name": "World of Warcraft",
-                "correctAnswer": false
-            },
-            {
-                "game_id": "515474",
-                "game_name": "Naraka: Bladepoint",
-                "correctAnswer": false
-            },
-            {
-                "game_id": "2274",
-                "game_name": "The Sims 2",
-                "correctAnswer": true
-            }
-        ]
-    }
-]
+  const IMAGES_WIDTH = 300;
+  const IMAGES_HEIGHT = 168;
   // State
   const [pageState, setPageState] = useState({state: 'Menu', data: { loading: true }});
   const [counter, setCounter] = useState(COUNTER_TIME);
@@ -239,17 +86,14 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    console.log('State changed', pageState);
+    // console.log('State changed', pageState);
     if (pageState.state === 'Menu' && pageState.data?.loading === true) {
       // todo uncomment this
       loadStreamersData();
       
       // todo delete this
-      // setPageState({ state: 'Questions', data: {
-      //   questionNumber: 1, 
-      //   questions: QUESTIONS_TEST_CASE,
-      //   question: QUESTIONS_TEST_CASE[0],
-      //   score: 12
+      // setPageState({ state: 'Leaderboard', data: {
+      //   score: 23
       // }});
       return;
     }
@@ -271,7 +115,7 @@ const Home = () => {
 
   // Actions
   const processStreamersResponse = (streamersData) => {
-    console.log('in processStreamersResponse: ', streamersData);
+    // console.log('in processStreamersResponse: ', streamersData);
     let dataByGame = _.groupBy(streamersData, 'game_name');
     let games = shuffle(Object.keys(dataByGame));
     games.forEach(game => {
@@ -289,7 +133,7 @@ const Home = () => {
     [...Array(NUMBER_OF_QUESTIONS).keys()].forEach(i => {
       questions.push(getQuestion(i+1, data, games));
     });
-    console.log('questions', questions);
+    // console.log('questions', questions);
     return questions;
   }
 
@@ -322,6 +166,8 @@ const Home = () => {
               NUMBER_OF_QUESTIONS={NUMBER_OF_QUESTIONS}
               COUNTER_TIME={COUNTER_TIME}
               COUNTER_DELAY={COUNTER_DELAY}
+              IMAGES_WIDTH={IMAGES_WIDTH}
+              IMAGES_HEIGHT={IMAGES_HEIGHT}
               counter={counter}
               setCounter={setCounter}
               runningCounter={runningCounter}

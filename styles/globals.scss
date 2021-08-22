@@ -32,6 +32,27 @@ a {
   box-sizing: border-box;
 }
 
+// Scrollbar
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $font-color-hover; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $font-color-lighter; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $font-color-light; 
+}
+
 button {
   font-weight: bold;
   display: inline-block;
