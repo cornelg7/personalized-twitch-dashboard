@@ -2,8 +2,17 @@
 @import 'global';
 
 .leaderboardContainer {
+  display: flex;
+  flex-direction: column;
+  color: $font-color;
+  font-size: $font-size-md;
 
+  .leaderboardContainerInner {
+    display: flex;
+    justify-content: space-between;
+  }
 }
+
 
 .leaderboardText {
 

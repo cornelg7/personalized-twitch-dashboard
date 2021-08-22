@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 
 const Home = () => {
   // Constants
-  const NUMBER_OF_QUESTIONS = 5;
+  const NUMBER_OF_QUESTIONS = 10;
   const COUNTER_DELAY = 1000;
   const COUNTER_TIME = 20;
   const IMAGES_WIDTH = 300;
@@ -46,13 +46,29 @@ const Home = () => {
     return [r1, r2, r3];
   }
 
-  const getQuestion = (i, data, games) => {
+  const getQuestion = (i, data, games, questions) => {
+    // console.log(i);
     const randoms = get3RandomNumbers(games.length - 1);
     // console.log('randoms', randoms);
     const randomData = {};
-    randoms.forEach(random => { randomData[games[random]] = data[games[random]][0]; });
+    randoms.forEach(random => { randomData[games[random]] = data[games[random]][_.random(0, data[games[random]].length - 1)]; });
     // console.log('randomData', randomData);
-    const correctAnswerGameDataIndex = _.random(0, 2);
+    let correctAnswerGameDataIndex = _.random(0, 2);
+    // If there's already a game with this correct answer, pick another one
+    let isUnique = true;
+    questions.forEach(question => { 
+      if (question.correctAnswerData.game_id === randomData[Object.keys(randomData)[correctAnswerGameDataIndex]].game_id) {
+        isUnique = false;
+      }
+    });
+    if (!isUnique) {
+      // console.log('not unique');
+      if (correctAnswerGameDataIndex === 1) {
+        correctAnswerGameDataIndex = 0;
+      } else {
+        correctAnswerGameDataIndex = 1;
+      }
+    } 
     const correctAnswerGameData = randomData[Object.keys(randomData)[correctAnswerGameDataIndex]];
     const correctAnswerGameDataSelect = {
       game_id: correctAnswerGameData.game_id,
@@ -88,13 +104,8 @@ const Home = () => {
   useEffect(() => {
     // console.log('State changed', pageState);
     if (pageState.state === 'Menu' && pageState.data?.loading === true) {
-      // todo uncomment this
+      console.log('don\'t cheat pls, here\' a cookie 🍪');
       loadStreamersData();
-      
-      // todo delete this
-      // setPageState({ state: 'Leaderboard', data: {
-      //   score: 23
-      // }});
       return;
     }
     if (pageState.state === 'Questions') {
@@ -131,7 +142,7 @@ const Home = () => {
     // console.log('data', data);
     const questions = [];
     [...Array(NUMBER_OF_QUESTIONS).keys()].forEach(i => {
-      questions.push(getQuestion(i+1, data, games));
+      questions.push(getQuestion(i+1, data, games, questions));
     });
     // console.log('questions', questions);
     return questions;
@@ -178,7 +189,7 @@ const Home = () => {
               setRunningCounter={setRunningCounter}
             />
           : pageState?.state === 'Leaderboard' ? 
-            <Leaderboard pageState={pageState} setPageState={setPageState}/>
+            <Leaderboard pageState={pageState} setPageState={setPageState} NUMBER_OF_QUESTIONS={NUMBER_OF_QUESTIONS}/>
           : (<div> Uh-oh, you broke it! </div>)
         }
       </div>
